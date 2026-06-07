@@ -50,7 +50,7 @@ export function LeftPanel() {
           opacity: hoveredPanel === 'bio' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg overflow-y-auto overflow-x-hidden cursor-default transition-colors hover:border-emerald-500/60"
+        className="flex flex-col border border-emerald-500/30 bg-glass p-3 lg:p-4 terminal-border shadow-lg overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
       >
         <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex items-center gap-2 flex-shrink-0 h-4">
           <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse" />
@@ -114,9 +114,9 @@ export function LeftPanel() {
           opacity: hoveredPanel === 'identity' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg relative overflow-y-auto overflow-x-hidden cursor-default transition-colors hover:border-emerald-500/60"
+        className="flex flex-col border border-emerald-500/30 bg-glass p-3 lg:p-4 terminal-border shadow-lg relative overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
       >
-        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex-shrink-0 h-4 mb-2">
+        <motion.div layout="position" className="text-emerald-500/50 text-[10px] lg:text-xs font-mono flex-shrink-0 h-4 mb-1 lg:mb-2">
           [ SYSTEM_OBJECTIVE ]
         </motion.div>
 
@@ -129,7 +129,7 @@ export function LeftPanel() {
           }}
           className="overflow-hidden flex-shrink-0"
         >
-          <p className="text-sm font-mono text-emerald-500/70 leading-relaxed">
+          <p className="text-[11px] lg:text-xs font-mono text-emerald-500/70 leading-relaxed">
             {about.bio}
           </p>
         </motion.div>
@@ -142,12 +142,12 @@ export function LeftPanel() {
             marginTop: hoveredPanel === 'bio' ? 8 : 0,
             paddingTop: hoveredPanel === 'bio' ? 8 : 0
           }}
-          className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 overflow-hidden flex-shrink-0"
+          className="border-t border-emerald-500/20 text-[10px] lg:text-[11px] font-mono text-emerald-500/70 overflow-hidden flex-shrink-0"
         >
-          <div className="mb-2 text-emerald-500/40 animate-pulse">DECRYPTING_MODULES...</div>
-          <p>Specializing in full-stack architecture, distributed systems, and real-time socket communication.</p>
+          <div className="mb-1 text-emerald-500/40 animate-pulse">DECRYPTING_MODULES...</div>
+          <p className="leading-snug">Specializing in full-stack architecture, distributed systems, and real-time socket communication.</p>
           
-          <div className="mt-4 flex flex-col gap-2 border-t border-emerald-500/10 pt-4">
+          <div className="mt-2 flex flex-col gap-1 border-t border-emerald-500/10 pt-2">
              <span className="opacity-50">KEY_METRICS:</span>
              <div className="flex justify-between"><span>PROJECTS_SHIPPED</span><span>42</span></div>
              <div className="flex justify-between"><span>COFFEE_CONSUMED</span><span>ERR_OVERFLOW</span></div>
@@ -164,13 +164,13 @@ export function LeftPanel() {
           }}
           className="flex flex-col gap-1 overflow-hidden flex-shrink-0"
         >
-          <a href={socials.github} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+          <a href={socials.github} target="_blank" rel="noreferrer" className="text-[10px] lg:text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
             <span className="opacity-50">[{">"}]</span> GITHUB_UPLINK
           </a>
-          <a href={socials.instagram} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+          <a href={socials.instagram} target="_blank" rel="noreferrer" className="text-[10px] lg:text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
             <span className="opacity-50">[{">"}]</span> INSTA_FEED
           </a>
-          <a href={socials.discord} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+          <a href={socials.discord} target="_blank" rel="noreferrer" className="text-[10px] lg:text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
             <span className="opacity-50">[{">"}]</span> DISCORD_NODE
           </a>
         </motion.div>
