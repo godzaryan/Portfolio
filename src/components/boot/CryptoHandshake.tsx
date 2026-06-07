@@ -22,8 +22,15 @@ function generateMatrix(rows: number, cols: number) {
 
 export function CryptoHandshake({ onComplete }: { onComplete: () => void }) {
   const [textIndex, setTextIndex] = useState(0);
-  const [matrix, setMatrix] = useState<string[][]>(generateMatrix(5, 30));
+  const [matrix, setMatrix] = useState<string[][]>(() => 
+    Array.from({ length: 5 }, () => Array(30).fill("0"))
+  );
   const [iter, setIter] = useState(0);
+
+  // Initialize random matrix on client mount to avoid SSR hydration mismatch
+  useEffect(() => {
+    setMatrix(generateMatrix(5, 30));
+  }, []);
 
   // Background randomizer for non-resolved rows
   useEffect(() => {
