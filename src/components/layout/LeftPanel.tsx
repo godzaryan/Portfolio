@@ -46,7 +46,7 @@ export function LeftPanel() {
         onMouseEnter={() => setHoveredPanel('identity')}
         onMouseLeave={() => setHoveredPanel(null)}
         animate={{
-          flex: hoveredPanel === 'identity' ? 1 : hoveredPanel === null ? 0 : 0,
+          flex: hoveredPanel === 'identity' ? "1 1 0%" : "0 0 auto",
           opacity: hoveredPanel === 'bio' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
@@ -110,7 +110,7 @@ export function LeftPanel() {
         onMouseEnter={() => setHoveredPanel('bio')}
         onMouseLeave={() => setHoveredPanel(null)}
         animate={{
-          flex: hoveredPanel === 'bio' ? 1 : hoveredPanel === null ? 1 : 0,
+          flex: hoveredPanel === 'identity' ? "0 0 auto" : "1 1 0%",
           opacity: hoveredPanel === 'identity' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
