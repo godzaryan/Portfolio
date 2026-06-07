@@ -20,9 +20,19 @@ export function GeoTracker({ onComplete }: { onComplete: () => void }) {
   const [center, setCenter] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
+    const fallbackLocation = {
+      lat: 22.5726,
+      lng: 88.3639,
+      city: "Kolkata",
+      country: "India"
+    };
+
     // Fetch actual IP location
     fetch("https://ipapi.co/json/")
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Fetch failed");
+        return res.json();
+      })
       .then(data => {
         if (data && data.latitude && data.longitude) {
           setLocation({
@@ -31,9 +41,15 @@ export function GeoTracker({ onComplete }: { onComplete: () => void }) {
             city: data.city || "UNKNOWN",
             country: data.country_name || "UNKNOWN"
           });
+        } else {
+          setLocation(fallbackLocation);
         }
       })
-      .catch(console.error);
+      .catch((err) => {
+        // Suppress error overlay by using console.warn and setting fallback
+        console.warn("[GeoTracker] Uplink to IPAPI failed. Using fallback coordinates.");
+        setLocation(fallbackLocation);
+      });
 
     const timer1 = setTimeout(() => {
       setLocked(true);
