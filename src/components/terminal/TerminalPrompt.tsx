@@ -33,7 +33,7 @@ export function TerminalPrompt({ onSend, isLoading }: TerminalPromptProps) {
   return (
     <div className="relative mt-4 flex items-center border border-emerald-500/30 bg-obsidian-light p-2 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
       <div className="text-emerald-500 font-mono mr-3 flex items-center shrink-0">
-        <span className="text-emerald-500/50 mr-2">root@nexus:~#</span>
+        <span className="text-emerald-500/50 mr-2">root@devil:~#</span>
       </div>
       
       <input

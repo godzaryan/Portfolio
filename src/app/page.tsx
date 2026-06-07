@@ -6,6 +6,9 @@ import { TerminalContainer } from "@/components/terminal/TerminalContainer";
 import { TerminalPrompt } from "@/components/terminal/TerminalPrompt";
 import { DynamicRenderer } from "@/components/terminal/DynamicRenderer";
 import { TerminalLayout } from "@/lib/ai/schema";
+import { MouseTrailer } from "@/components/effects/MouseTrailer";
+import { LeftPanel } from "@/components/layout/LeftPanel";
+import { RightPanel } from "@/components/layout/RightPanel";
 
 export default function Home() {
   const [bootComplete, setBootComplete] = useState(false);
@@ -45,18 +48,26 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-obsidian text-foreground p-4 flex flex-col items-center justify-center relative overflow-hidden">
+    <main className="min-h-screen bg-obsidian text-foreground p-4 flex flex-col items-center justify-center relative overflow-hidden cursor-crosshair">
       {/* Global Background Effects */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
       <div className="scanline-overlay" />
       
+      <MouseTrailer />
+
       {!bootComplete && <BootSequence onComplete={() => setBootComplete(true)} />}
       
       {bootComplete && (
-        <TerminalContainer>
-          <DynamicRenderer layoutData={layoutData} isLoading={isLoading} />
-          <TerminalPrompt onSend={handleCommand} isLoading={isLoading} />
-        </TerminalContainer>
+        <div className="flex w-full h-[85vh] gap-6 z-10 relative px-4 lg:px-8">
+          <LeftPanel />
+          <div className="flex-1 min-w-0 h-full">
+            <TerminalContainer className="!h-full !max-w-none">
+              <DynamicRenderer layoutData={layoutData} isLoading={isLoading} />
+              <TerminalPrompt onSend={handleCommand} isLoading={isLoading} />
+            </TerminalContainer>
+          </div>
+          <RightPanel />
+        </div>
       )}
     </main>
   );

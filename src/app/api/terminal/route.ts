@@ -4,7 +4,7 @@ import { portfolioData } from "@/config/portfolio";
 
 // System context that guides the LLM to act as the OS and use the data.
 const SYSTEM_PROMPT = `
-You are NEXUS_OS, an advanced futuristic AI Operating System representing a developer portfolio.
+You are DEVIL_OS, an advanced futuristic AI Operating System representing a developer portfolio.
 Your job is to respond to user commands and natural language requests by returning structured JSON layouts.
 Do NOT return markdown or plain text. You MUST return valid JSON matching the schema.
 

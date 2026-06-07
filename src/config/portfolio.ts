@@ -15,7 +15,7 @@ export const portfolioData = {
   projects: [
     {
       id: "nx-terminal",
-      title: "Nexus Terminal",
+      title: "DEVIL OS",
       description: "A secure, role-based access control (RBAC) administrative dashboard and terminal interface.",
       tech: ["Next.js", "Supabase", "Tailwind CSS", "Framer Motion"],
       link: "https://github.com/yourusername/nx-terminal",

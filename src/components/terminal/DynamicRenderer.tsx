@@ -32,7 +32,7 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
     return (
       <div className="flex-1 flex items-center justify-center font-mono text-emerald-500/30">
         <div className="text-center">
-          <p>NEXUS_OS // AWAITING INPUT</p>
+          <p>DEVIL_OS // AWAITING INPUT</p>
           <p className="text-[10px] mt-2">TYPE A COMMAND OR REQUEST TO BEGIN</p>
         </div>
       </div>
