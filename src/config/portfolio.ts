@@ -1,6 +1,6 @@
 export const portfolioData = {
   about: {
-    name: "Developer / Engineer",
+    name: "Akash Kumar",
     role: "Full-Stack Software Engineer",
     location: "Kolkata, India",
     bio: "Building high-performance, futuristic web applications and scalable system architectures.",
