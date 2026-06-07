@@ -13,8 +13,20 @@ interface GithubEvent {
   created_at: string;
 }
 
+interface GithubRepo {
+  id: number;
+  name: string;
+  html_url: string;
+  description: string;
+  stargazers_count: number;
+  fork: boolean;
+  language: string;
+  pushed_at: string;
+}
+
 export function GithubActivity() {
   const [events, setEvents] = useState<GithubEvent[]>([]);
+  const [repos, setRepos] = useState<GithubRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -26,26 +38,44 @@ export function GithubActivity() {
         
         const cached = localStorage.getItem(CACHE_KEY);
         if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
+          const { data, reposData, timestamp } = JSON.parse(cached);
           if (Date.now() - timestamp < CACHE_TIME) {
             setEvents(data);
+            setRepos(reposData || []);
             setLoading(false);
             return;
           }
         }
 
-        const res = await fetch("https://api.github.com/users/godzaryan/events/public");
-        if (!res.ok) throw new Error("Failed to fetch");
+        const [eventsRes, reposRes] = await Promise.all([
+          fetch("https://api.github.com/users/godzaryan/events/public"),
+          fetch("https://api.github.com/users/godzaryan/repos?sort=pushed&per_page=30")
+        ]);
+
+        if (!eventsRes.ok || !reposRes.ok) throw new Error("Failed to fetch");
         
-        const data = await res.json();
-        const recent = data.slice(0, 4);
+        const data = await eventsRes.json();
+        const allRepos = await reposRes.json();
+
+        const recentEvents = data.slice(0, 4);
+        
+        // Filter out forks, sort by stars, then by recently pushed
+        const topRepos = allRepos
+          .filter((r: GithubRepo) => !r.fork)
+          .sort((a: GithubRepo, b: GithubRepo) => {
+            if (b.stargazers_count !== a.stargazers_count) return b.stargazers_count - a.stargazers_count;
+            return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
+          })
+          .slice(0, 3);
         
         localStorage.setItem(CACHE_KEY, JSON.stringify({
-          data: recent,
+          data: recentEvents,
+          reposData: topRepos,
           timestamp: Date.now()
         }));
         
-        setEvents(recent);
+        setEvents(recentEvents);
+        setRepos(topRepos);
       } catch (err) {
         console.error("Github API error", err);
         setError(true);
@@ -142,6 +172,36 @@ export function GithubActivity() {
             LIVE_CONNECTION
           </a>
         </div>
+
+        {repos.length > 0 && !loading && !error && (
+          <div className="mt-2 pt-2 border-t border-emerald-500/20 flex flex-col gap-2">
+            <span className="opacity-50 text-[9px] lg:text-[10px] mb-1">TOP_REPOSITORIES</span>
+            {repos.map((repo, i) => (
+              <motion.div 
+                key={repo.id}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex flex-col border border-emerald-500/10 bg-emerald-950/20 p-1.5 hover:bg-emerald-500/10 transition-colors"
+              >
+                <div className="flex justify-between items-start">
+                  <a 
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-emerald-400 font-bold hover:underline truncate"
+                  >
+                    {repo.name}
+                  </a>
+                  <div className="flex gap-2 text-[9px] opacity-70 flex-shrink-0">
+                    {repo.language && <span>{repo.language}</span>}
+                    <span>★ {repo.stargazers_count}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
