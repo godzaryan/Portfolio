@@ -58,18 +58,20 @@ export function LeftPanel() {
           ID_CARD // USER
         </motion.div>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {hoveredPanel !== 'bio' && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex-shrink-0"
+              key="identity-basic"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex-shrink-0 overflow-hidden"
             >
-              <h1 className="text-xl font-bold tracking-widest text-emerald-400 mb-1 uppercase whitespace-nowrap">
+              <h1 className="text-xl font-bold tracking-widest text-emerald-400 mb-1 uppercase break-words">
                 {about.name}
               </h1>
-              <div className="text-sm text-emerald-500/80 font-mono mb-2 whitespace-nowrap">
+              <div className="text-sm text-emerald-500/80 font-mono mb-2 break-words">
                 &gt; {about.role}
               </div>
               <div className="text-xs text-emerald-500/50 font-mono flex items-center gap-2">
@@ -79,14 +81,15 @@ export function LeftPanel() {
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {hoveredPanel === 'identity' && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mt-4 pt-4 border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 flex flex-col gap-2"
+              key="identity-expanded"
+              initial={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
+              animate={{ opacity: 1, height: "auto", marginTop: 16, paddingTop: 16 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
+              transition={{ duration: 0.3 }}
+              className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 flex flex-col gap-2 overflow-hidden"
             >
               <div className="flex justify-between">
                 <span className="opacity-50">STATUS:</span>
@@ -126,27 +129,30 @@ export function LeftPanel() {
           [ SYSTEM_OBJECTIVE ]
         </motion.div>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {hoveredPanel !== 'identity' && (
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-sm font-mono text-emerald-500/70 leading-relaxed"
+              key="bio-basic"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-sm font-mono text-emerald-500/70 leading-relaxed overflow-hidden"
             >
               {about.bio}
             </motion.p>
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {hoveredPanel === 'bio' && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mt-4 pt-4 border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70"
+              key="bio-expanded"
+              initial={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
+              animate={{ opacity: 1, height: "auto", marginTop: 16, paddingTop: 16 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
+              transition={{ duration: 0.3 }}
+              className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 overflow-hidden"
             >
               <div className="mb-2 text-emerald-500/40 animate-pulse">DECRYPTING_MODULES...</div>
               <p>Specializing in full-stack architecture, distributed systems, and real-time socket communication.</p>
@@ -160,13 +166,15 @@ export function LeftPanel() {
           )}
         </AnimatePresence>
         
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {hoveredPanel !== 'identity' && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="mt-auto pt-4 flex flex-col gap-2"
+              key="bio-socials"
+              initial={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
+              animate={{ opacity: 1, height: "auto", marginTop: "auto", paddingTop: 16 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col gap-2 overflow-hidden"
             >
               <a href={socials.github} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
                 <span className="opacity-50">[{">"}]</span> GITHUB_UPLINK
