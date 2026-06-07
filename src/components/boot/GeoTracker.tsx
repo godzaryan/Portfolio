@@ -2,17 +2,59 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from "react-simple-maps";
+
+const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
+
+interface LocationData {
+  lat: number;
+  lng: number;
+  city: string;
+  country: string;
+}
 
 export function GeoTracker({ onComplete }: { onComplete: () => void }) {
   const [locked, setLocked] = useState(false);
+  const [location, setLocation] = useState<LocationData | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [center, setCenter] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Fetch actual IP location
+    fetch("https://ipapi.co/json/")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.latitude && data.longitude) {
+          setLocation({
+            lat: data.latitude,
+            lng: data.longitude,
+            city: data.city || "UNKNOWN",
+            country: data.country_name || "UNKNOWN"
+          });
+        }
+      })
+      .catch(console.error);
+
+    const timer1 = setTimeout(() => {
       setLocked(true);
-      setTimeout(onComplete, 800);
+      // Trigger zoom animation
+      setZoom(4);
     }, 1500);
-    return () => clearTimeout(timer);
+
+    const timer2 = setTimeout(onComplete, 3500);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, [onComplete]);
+
+  // Center the map on the user's location when available
+  useEffect(() => {
+    if (location) {
+      setCenter([location.lng, location.lat]);
+    }
+  }, [location]);
 
   return (
     <div className="relative flex flex-col items-center">
@@ -20,48 +62,66 @@ export function GeoTracker({ onComplete }: { onComplete: () => void }) {
         {locked ? "[ TARGET LOCKED : SECURE ]" : "[ SCANNING SECTORS ]"}
       </div>
       
-      <div className="relative w-64 h-64 border border-emerald-500/20 bg-emerald-950/10 p-4">
-        {/* Simplified India Outline SVG */}
-        <svg viewBox="0 0 100 100" className="w-full h-full opacity-50">
-          <motion.path
-            d="M30,10 L45,5 L60,15 L70,30 L85,45 L75,60 L60,85 L50,95 L40,80 L25,60 L15,40 L20,25 Z"
-            fill="none"
-            stroke="#10B981"
-            strokeWidth="0.5"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          />
-        </svg>
+      <div className="relative w-72 h-64 border border-emerald-500/20 bg-emerald-950/10 p-2 overflow-hidden">
+        {/* World Map Container */}
+        <div className="w-full h-full opacity-60">
+          <ComposableMap 
+            projection="geoMercator" 
+            projectionConfig={{ scale: 100 }}
+            width={800}
+            height={600}
+            style={{ width: "100%", height: "100%" }}
+          >
+            <ZoomableGroup 
+              center={center} 
+              zoom={locked ? zoom : 1}
+              // Animate the zoom using simple transition string
+              className="transition-all duration-1000 ease-in-out"
+            >
+              <Geographies geography={geoUrl}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="transparent"
+                      stroke="#10B981"
+                      strokeWidth={0.5}
+                      style={{
+                        default: { outline: "none" },
+                        hover: { outline: "none" },
+                        pressed: { outline: "none" },
+                      }}
+                    />
+                  ))
+                }
+              </Geographies>
 
-        {/* Reticle / Kolkata Coordinate (Roughly East India) */}
-        <motion.div
-          className="absolute border border-emerald-400 rounded-full flex items-center justify-center pointer-events-none"
-          initial={{ top: "10%", left: "10%", width: "100px", height: "100px", opacity: 0 }}
-          animate={
-            locked 
-            ? { top: "45%", left: "65%", width: "24px", height: "24px", opacity: 1 } 
-            : { top: "30%", left: "40%", width: "80px", height: "80px", opacity: 0.5 }
-          }
-          transition={{ duration: 1.2, ease: "circOut" }}
-        >
-          {locked && (
-            <motion.div 
-              className="w-1 h-1 bg-neon-accent rounded-full animate-pulse shadow-[0_0_8px_#34D399]" 
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-            />
-          )}
-        </motion.div>
+              {location && locked && (
+                <Marker coordinates={[location.lng, location.lat]}>
+                  <motion.g
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, type: "spring" }}
+                  >
+                    <circle r={2} fill="#34D399" />
+                    <circle r={8} fill="transparent" stroke="#34D399" strokeWidth={1} strokeDasharray="2,2" className="animate-spin-slow" />
+                  </motion.g>
+                </Marker>
+              )}
+            </ZoomableGroup>
+          </ComposableMap>
+        </div>
         
-        {locked && (
+        {locked && location && (
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="absolute top-[40%] left-[75%] text-[10px] font-mono text-neon-accent flex flex-col glow-text"
+            className="absolute bottom-2 right-2 text-[10px] font-mono text-neon-accent flex flex-col glow-text bg-obsidian/80 p-1 border border-emerald-500/30"
           >
-            <span>LAT: 22.5726° N</span>
-            <span>LNG: 88.3639° E</span>
+            <span>LAT: {location.lat.toFixed(4)}° N</span>
+            <span>LNG: {location.lng.toFixed(4)}° E</span>
+            <span className="max-w-[120px] truncate">LOC: {location.city}, {location.country}</span>
             <span>SYS: ONLINE</span>
           </motion.div>
         )}

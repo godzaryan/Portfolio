@@ -41,7 +41,7 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
 
   const { layout, theme, animationCurve, components, message } = layoutData;
 
-  const getAnimationProps = () => {
+  const getAnimationProps = (): any => {
     switch (animationCurve) {
       case "snappy": return { type: "spring", stiffness: 400, damping: 25 };
       case "bounce": return { type: "spring", stiffness: 300, damping: 10 };
