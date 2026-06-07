@@ -1,4 +1,4 @@
-import { generateObject, type GenerateObjectResult } from "ai";
+import { generateText } from "ai";
 import { createGroq } from "@ai-sdk/groq";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { terminalLayoutSchema, type TerminalLayout } from "./schema";
@@ -16,20 +16,20 @@ const FALLBACK_MODELS = [
 export async function generateDynamicLayout(
   prompt: string,
   systemContext: string
-): Promise<GenerateObjectResult<TerminalLayout>> {
+): Promise<{ object: TerminalLayout }> {
   let lastError: Error | null = null;
 
   for (const model of FALLBACK_MODELS) {
     try {
-      const result = await generateObject({
+      const result = await generateText({
         model,
-        mode: model.provider.includes("groq") ? "json" : "auto",
-        schema: terminalLayoutSchema,
-        system: systemContext,
+        system: systemContext + "\n\nCRITICAL: You MUST respond with ONLY raw JSON matching the schema. Do not use markdown blocks like ```json. Just raw valid JSON.",
         prompt,
       });
       
-      return result;
+      const text = result.text.replace(/```json/g, "").replace(/```/g, "").trim();
+      const parsed = JSON.parse(text);
+      return { object: parsed };
     } catch (error: any) {
       console.warn(`[AI SDK] Model ${model.modelId} failed:`, error.message);
       lastError = error;
