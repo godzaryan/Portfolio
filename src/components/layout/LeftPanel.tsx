@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { portfolioData } from "@/config/portfolio";
 import Image from "next/image";
 
@@ -47,69 +47,61 @@ export function LeftPanel() {
         onMouseLeave={() => setHoveredPanel(null)}
         animate={{
           flex: hoveredPanel === 'identity' ? 1 : hoveredPanel === null ? 0 : 0,
-          minHeight: hoveredPanel === 'bio' ? '54px' : hoveredPanel === null ? '120px' : 'auto',
           opacity: hoveredPanel === 'bio' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg overflow-hidden cursor-default hover:border-emerald-500/60 transition-colors"
+        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
       >
-        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono mb-2 flex items-center gap-2 flex-shrink-0">
+        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex items-center gap-2 flex-shrink-0 h-4">
           <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse" />
           ID_CARD // USER
         </motion.div>
 
-        <AnimatePresence initial={false}>
-          {hoveredPanel !== 'bio' && (
-            <motion.div
-              key="identity-basic"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex-shrink-0 overflow-hidden"
-            >
-              <h1 className="text-xl font-bold tracking-widest text-emerald-400 mb-1 uppercase break-words">
-                {about.name}
-              </h1>
-              <div className="text-sm text-emerald-500/80 font-mono mb-2 break-words">
-                &gt; {about.role}
-              </div>
-              <div className="text-xs text-emerald-500/50 font-mono flex items-center gap-2">
-                <span className="opacity-50">LOC:</span> {about.location}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          animate={{ 
+            height: hoveredPanel === 'bio' ? 0 : "auto", 
+            opacity: hoveredPanel === 'bio' ? 0 : 1,
+            marginTop: hoveredPanel === 'bio' ? 0 : 8
+          }}
+          className="flex-shrink-0 overflow-hidden"
+        >
+          <h1 className="text-xl font-bold tracking-widest text-emerald-400 mb-1 uppercase break-words">
+            {about.name}
+          </h1>
+          <div className="text-sm text-emerald-500/80 font-mono mb-2 break-words">
+            &gt; {about.role}
+          </div>
+          <div className="text-xs text-emerald-500/50 font-mono flex items-center gap-2">
+            <span className="opacity-50">LOC:</span> {about.location}
+          </div>
+        </motion.div>
 
-        <AnimatePresence initial={false}>
-          {hoveredPanel === 'identity' && (
-            <motion.div
-              key="identity-expanded"
-              initial={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
-              animate={{ opacity: 1, height: "auto", marginTop: 16, paddingTop: 16 }}
-              exit={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
-              transition={{ duration: 0.3 }}
-              className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 flex flex-col gap-2 overflow-hidden"
-            >
-              <div className="flex justify-between">
-                <span className="opacity-50">STATUS:</span>
-                <span className="text-emerald-400">{about.status.replace(/_/g, " ")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="opacity-50">CLEARANCE:</span>
-                <span>LEVEL 5</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="opacity-50">ENCRYPTION:</span>
-                <span>RSA-4096</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="opacity-50">UPTIME:</span>
-                <span>99.9%</span>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          animate={{ 
+            height: hoveredPanel === 'identity' ? "auto" : 0, 
+            opacity: hoveredPanel === 'identity' ? 1 : 0,
+            marginTop: hoveredPanel === 'identity' ? 16 : 0,
+            paddingTop: hoveredPanel === 'identity' ? 16 : 0,
+          }}
+          className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 flex flex-col gap-2 overflow-hidden"
+        >
+          <div className="flex justify-between">
+            <span className="opacity-50">STATUS:</span>
+            <span className="text-emerald-400">{about.status.replace(/_/g, " ")}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="opacity-50">CLEARANCE:</span>
+            <span>LEVEL 5</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="opacity-50">ENCRYPTION:</span>
+            <span>RSA-4096</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="opacity-50">UPTIME:</span>
+            <span>99.9%</span>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Bio Box */}
@@ -119,75 +111,69 @@ export function LeftPanel() {
         onMouseLeave={() => setHoveredPanel(null)}
         animate={{
           flex: hoveredPanel === 'bio' ? 1 : hoveredPanel === null ? 1 : 0,
-          minHeight: hoveredPanel === 'identity' ? '54px' : 'auto',
           opacity: hoveredPanel === 'identity' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg relative overflow-hidden cursor-default hover:border-emerald-500/60 transition-colors"
+        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg relative overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
       >
-        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono mb-2 flex-shrink-0">
+        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex-shrink-0 h-4">
           [ SYSTEM_OBJECTIVE ]
         </motion.div>
 
-        <AnimatePresence initial={false}>
-          {hoveredPanel !== 'identity' && (
-            <motion.p
-              key="bio-basic"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-sm font-mono text-emerald-500/70 leading-relaxed overflow-hidden"
-            >
-              {about.bio}
-            </motion.p>
-          )}
-        </AnimatePresence>
+        {/* Basic Bio */}
+        <motion.div
+          animate={{ 
+            height: hoveredPanel === 'identity' ? 0 : "auto", 
+            opacity: hoveredPanel === 'identity' ? 0 : 1,
+            marginTop: hoveredPanel === 'identity' ? 0 : 8
+          }}
+          className="overflow-hidden flex-shrink-0"
+        >
+          <p className="text-sm font-mono text-emerald-500/70 leading-relaxed">
+            {about.bio}
+          </p>
+        </motion.div>
 
-        <AnimatePresence initial={false}>
-          {hoveredPanel === 'bio' && (
-            <motion.div
-              key="bio-expanded"
-              initial={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
-              animate={{ opacity: 1, height: "auto", marginTop: 16, paddingTop: 16 }}
-              exit={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
-              transition={{ duration: 0.3 }}
-              className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 overflow-hidden"
-            >
-              <div className="mb-2 text-emerald-500/40 animate-pulse">DECRYPTING_MODULES...</div>
-              <p>Specializing in full-stack architecture, distributed systems, and real-time socket communication.</p>
-              
-              <div className="mt-4 flex flex-col gap-2 border-t border-emerald-500/10 pt-4">
-                 <span className="opacity-50">KEY_METRICS:</span>
-                 <div className="flex justify-between"><span>PROJECTS_SHIPPED</span><span>42</span></div>
-                 <div className="flex justify-between"><span>COFFEE_CONSUMED</span><span>ERR_OVERFLOW</span></div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Expanded Bio Info */}
+        <motion.div
+          animate={{ 
+            height: hoveredPanel === 'bio' ? "auto" : 0, 
+            opacity: hoveredPanel === 'bio' ? 1 : 0,
+            marginTop: hoveredPanel === 'bio' ? 16 : 0,
+            paddingTop: hoveredPanel === 'bio' ? 16 : 0
+          }}
+          className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 overflow-hidden flex-shrink-0"
+        >
+          <div className="mb-2 text-emerald-500/40 animate-pulse">DECRYPTING_MODULES...</div>
+          <p>Specializing in full-stack architecture, distributed systems, and real-time socket communication.</p>
+          
+          <div className="mt-4 flex flex-col gap-2 border-t border-emerald-500/10 pt-4">
+             <span className="opacity-50">KEY_METRICS:</span>
+             <div className="flex justify-between"><span>PROJECTS_SHIPPED</span><span>42</span></div>
+             <div className="flex justify-between"><span>COFFEE_CONSUMED</span><span>ERR_OVERFLOW</span></div>
+          </div>
+        </motion.div>
         
-        <AnimatePresence initial={false}>
-          {hoveredPanel !== 'identity' && (
-            <motion.div
-              key="bio-socials"
-              initial={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
-              animate={{ opacity: 1, height: "auto", marginTop: "auto", paddingTop: 16 }}
-              exit={{ opacity: 0, height: 0, marginTop: 0, paddingTop: 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex flex-col gap-2 overflow-hidden"
-            >
-              <a href={socials.github} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
-                <span className="opacity-50">[{">"}]</span> GITHUB_UPLINK
-              </a>
-              <a href={socials.linkedin} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
-                <span className="opacity-50">[{">"}]</span> LINKEDIN_NODE
-              </a>
-              <a href={`mailto:${socials.email}`} className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
-                <span className="opacity-50">[{">"}]</span> SECURE_COMMS
-              </a>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Socials */}
+        <motion.div
+          animate={{ 
+            height: hoveredPanel === 'identity' ? 0 : "auto", 
+            opacity: hoveredPanel === 'identity' ? 0 : 1,
+            marginTop: hoveredPanel === 'identity' ? 0 : "auto",
+            paddingTop: hoveredPanel === 'identity' ? 0 : 16
+          }}
+          className="flex flex-col gap-2 overflow-hidden flex-shrink-0"
+        >
+          <a href={socials.github} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+            <span className="opacity-50">[{">"}]</span> GITHUB_UPLINK
+          </a>
+          <a href={socials.linkedin} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+            <span className="opacity-50">[{">"}]</span> LINKEDIN_NODE
+          </a>
+          <a href={`mailto:${socials.email}`} className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+            <span className="opacity-50">[{">"}]</span> SECURE_COMMS
+          </a>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
