@@ -167,11 +167,11 @@ export function LeftPanel() {
           <a href={socials.github} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
             <span className="opacity-50">[{">"}]</span> GITHUB_UPLINK
           </a>
-          <a href={socials.linkedin} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
-            <span className="opacity-50">[{">"}]</span> LINKEDIN_NODE
+          <a href={socials.instagram} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+            <span className="opacity-50">[{">"}]</span> INSTA_FEED
           </a>
-          <a href={`mailto:${socials.email}`} className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
-            <span className="opacity-50">[{">"}]</span> SECURE_COMMS
+          <a href={socials.discord} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
+            <span className="opacity-50">[{">"}]</span> DISCORD_NODE
           </a>
         </motion.div>
       </motion.div>

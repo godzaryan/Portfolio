@@ -39,9 +39,9 @@ export const portfolioData = {
     },
   ],
   socials: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    twitter: "https://twitter.com/yourusername",
+    github: "https://github.com/godzaryan",
+    instagram: "https://instagram.com/a.ryan.sky",
+    discord: "https://discordapp.com/users/843482811603091458",
     email: "contact@yourdomain.com",
   },
 };
