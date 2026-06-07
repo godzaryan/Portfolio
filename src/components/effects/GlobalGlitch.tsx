@@ -47,6 +47,15 @@ export function GlobalGlitch() {
         <div className="w-[150vw] h-20 bg-rose-600 -translate-x-20 mt-32" />
         <div className="w-[150vw] h-6 bg-blue-500 translate-x-8 mb-40" />
       </div>
+      
+      {/* V-SYNC Tracking Roll Bar */}
+      <div 
+        className="fixed inset-0 z-[9997] pointer-events-none mix-blend-difference opacity-70"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.2) 10%, rgba(0,0,0,0.8) 50%, rgba(255,255,255,0.2) 90%, transparent)',
+          animation: 'tracking-roll 0.15s linear infinite'
+        }}
+      />
     </>
   );
 }
