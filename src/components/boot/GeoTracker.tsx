@@ -62,9 +62,33 @@ export function GeoTracker({ onComplete }: { onComplete: () => void }) {
         {locked ? "[ TARGET LOCKED : SECURE ]" : "[ SCANNING SECTORS ]"}
       </div>
       
-      <div className="relative w-72 h-64 border border-emerald-500/20 bg-emerald-950/10 p-2 overflow-hidden">
+      <div className="relative w-72 h-64 border border-emerald-500/30 bg-emerald-950/20 p-2 overflow-hidden shadow-[inset_0_0_20px_rgba(16,185,129,0.1)]">
+        
+        {/* Retro Crosshairs Base */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
+          <div className="w-full h-[1px] bg-emerald-500" />
+          <div className="absolute h-full w-[1px] bg-emerald-500" />
+          <motion.div 
+            className="absolute w-16 h-16 border border-emerald-500 rounded-full"
+            animate={{ scale: locked ? 1.5 : [1, 1.2, 1], opacity: locked ? 0 : 1 }}
+            transition={{ duration: 2, repeat: locked ? 0 : Infinity }}
+          />
+        </div>
+
+        {/* Radar Sweep during scanning */}
+        {!locked && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden mix-blend-screen opacity-60">
+            <motion.div
+              className="w-[200%] h-[200%] rounded-full"
+              style={{ background: "conic-gradient(from 0deg, transparent 75%, rgba(16,185,129,0.8) 100%)" }}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+            />
+          </div>
+        )}
+
         {/* World Map Container */}
-        <div className="w-full h-full opacity-60">
+        <div className="w-full h-full opacity-70">
           <ComposableMap 
             projection="geoMercator" 
             projectionConfig={{ scale: 100 }}
@@ -104,8 +128,10 @@ export function GeoTracker({ onComplete }: { onComplete: () => void }) {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, type: "spring" }}
                   >
-                    <circle r={2} fill="#34D399" />
-                    <circle r={8} fill="transparent" stroke="#34D399" strokeWidth={1} strokeDasharray="2,2" className="animate-spin-slow" />
+                    <motion.circle r={2} fill="#34D399" animate={{ opacity: [1, 0, 1] }} transition={{ duration: 0.5, repeat: Infinity }} />
+                    <circle r={6} fill="transparent" stroke="#34D399" strokeWidth={1} strokeDasharray="2,2" className="animate-spin-slow" />
+                    <circle r={10} fill="transparent" stroke="#10B981" strokeWidth={0.5} opacity={0.5} />
+                    <motion.path d="M-12,0 L12,0 M0,-12 L0,12" stroke="#34D399" strokeWidth={0.5} opacity={0.8} />
                   </motion.g>
                 </Marker>
               )}
@@ -119,9 +145,10 @@ export function GeoTracker({ onComplete }: { onComplete: () => void }) {
             animate={{ opacity: 1, x: 0 }}
             className="absolute bottom-2 right-2 text-[10px] font-mono text-neon-accent flex flex-col glow-text bg-obsidian/80 p-1 border border-emerald-500/30"
           >
-            <span>LAT: {location.lat.toFixed(4)}° N</span>
-            <span>LNG: {location.lng.toFixed(4)}° E</span>
-            <span className="max-w-[120px] truncate">LOC: {location.city}, {location.country}</span>
+            <span className="mb-1 border-b border-emerald-500/30 pb-1">UPLINK ESTABLISHED</span>
+            <span className="opacity-80">LAT: {location.lat.toFixed(4)}° N</span>
+            <span className="opacity-80">LNG: {location.lng.toFixed(4)}° E</span>
+            <span className="max-w-[120px] truncate opacity-80">LOC: {location.city}, {location.country}</span>
             <span>SYS: ONLINE</span>
           </motion.div>
         )}
