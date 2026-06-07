@@ -10,6 +10,7 @@ import { MouseTrailer } from "@/components/effects/MouseTrailer";
 import { LeftPanel } from "@/components/layout/LeftPanel";
 import { RightPanel } from "@/components/layout/RightPanel";
 import { CyberFooter } from "@/components/effects/CyberFooter";
+import { GlobalGlitch } from "@/components/effects/GlobalGlitch";
 
 export default function Home() {
   const [bootComplete, setBootComplete] = useState(false);
@@ -71,7 +72,12 @@ export default function Home() {
         </div>
       )}
 
-      {bootComplete && <CyberFooter />}
+      {bootComplete && (
+        <>
+          <CyberFooter />
+          <GlobalGlitch />
+        </>
+      )}
     </main>
   );
 }
