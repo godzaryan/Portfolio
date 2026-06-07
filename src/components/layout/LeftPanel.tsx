@@ -50,7 +50,7 @@ export function LeftPanel() {
           opacity: hoveredPanel === 'bio' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
+        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg overflow-y-auto overflow-x-hidden cursor-default transition-colors hover:border-emerald-500/60"
       >
         <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex items-center gap-2 flex-shrink-0 h-4">
           <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse" />
@@ -114,9 +114,9 @@ export function LeftPanel() {
           opacity: hoveredPanel === 'identity' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg relative overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
+        className="flex flex-col border border-emerald-500/30 bg-glass p-4 terminal-border shadow-lg relative overflow-y-auto overflow-x-hidden cursor-default transition-colors hover:border-emerald-500/60"
       >
-        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex-shrink-0 h-4">
+        <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex-shrink-0 h-4 mb-2">
           [ SYSTEM_OBJECTIVE ]
         </motion.div>
 
@@ -139,8 +139,8 @@ export function LeftPanel() {
           animate={{ 
             height: hoveredPanel === 'bio' ? "auto" : 0, 
             opacity: hoveredPanel === 'bio' ? 1 : 0,
-            marginTop: hoveredPanel === 'bio' ? 16 : 0,
-            paddingTop: hoveredPanel === 'bio' ? 16 : 0
+            marginTop: hoveredPanel === 'bio' ? 8 : 0,
+            paddingTop: hoveredPanel === 'bio' ? 8 : 0
           }}
           className="border-t border-emerald-500/20 text-xs font-mono text-emerald-500/70 overflow-hidden flex-shrink-0"
         >
@@ -160,9 +160,9 @@ export function LeftPanel() {
             height: hoveredPanel === 'identity' ? 0 : "auto", 
             opacity: hoveredPanel === 'identity' ? 0 : 1,
             marginTop: hoveredPanel === 'identity' ? 0 : "auto",
-            paddingTop: hoveredPanel === 'identity' ? 0 : 16
+            paddingTop: hoveredPanel === 'identity' ? 0 : 8
           }}
-          className="flex flex-col gap-2 overflow-hidden flex-shrink-0"
+          className="flex flex-col gap-1 overflow-hidden flex-shrink-0"
         >
           <a href={socials.github} target="_blank" rel="noreferrer" className="text-xs font-mono text-emerald-500/50 hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer w-fit">
             <span className="opacity-50">[{">"}]</span> GITHUB_UPLINK
