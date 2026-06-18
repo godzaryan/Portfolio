@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { SendHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSearch } from "@/components/context/SearchContext";
 
 interface TerminalPromptProps {
   onSend: (message: string) => void;
@@ -12,6 +13,7 @@ interface TerminalPromptProps {
 export function TerminalPrompt({ onSend, isLoading }: TerminalPromptProps) {
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { setQuery } = useSearch();
 
   // Auto-focus logic
   useEffect(() => {
@@ -26,6 +28,7 @@ export function TerminalPrompt({ onSend, isLoading }: TerminalPromptProps) {
       if (input.trim() && !isLoading) {
         onSend(input.trim());
         setInput("");
+        setQuery("");
       }
     }
   };
@@ -40,7 +43,10 @@ export function TerminalPrompt({ onSend, isLoading }: TerminalPromptProps) {
         ref={inputRef}
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          setInput(e.target.value);
+          setQuery(e.target.value);
+        }}
         onKeyDown={handleKeyDown}
         disabled={isLoading}
         className={cn(
@@ -57,6 +63,7 @@ export function TerminalPrompt({ onSend, isLoading }: TerminalPromptProps) {
           if (input.trim() && !isLoading) {
             onSend(input.trim());
             setInput("");
+            setQuery("");
           }
         }}
         disabled={isLoading || !input.trim()}

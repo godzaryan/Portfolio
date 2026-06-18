@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "@/config/portfolio";
+import { useSearch } from "@/components/context/SearchContext";
 
 function DesignGallery({ images, title }: { images: string[], title: string }) {
   const [loadedCount, setLoadedCount] = useState(0);
@@ -183,6 +184,8 @@ function ProjectImageLoader({ src, alt }: { src: string, alt: string }) {
 
 export function ProjectShowcase() {
   const { projects, experience, designs } = portfolioData as any;
+  const { query } = useSearch();
+  const itemRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   
   const [activeMode, setActiveMode] = useState<"EXPERIENCE" | "PROJECTS" | "DESIGNS">("EXPERIENCE");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -261,6 +264,42 @@ export function ProjectShowcase() {
     return () => clearInterval(interval);
   }, [activeNode]);
 
+  // Search Engine Navigation Logic
+  useEffect(() => {
+    if (!query || query.trim().length < 2) return;
+    
+    const searchLower = query.toLowerCase();
+    
+    const checkMatch = (item: any) => {
+      const matchText = `${item.title} ${item.description} ${item.role} ${(item.tech || []).join(" ")}`.toLowerCase();
+      return matchText.includes(searchLower);
+    };
+
+    const searchInMode = (mode: string, dataList: any[]) => {
+      const idx = dataList.findIndex(checkMatch);
+      if (idx !== -1) {
+        if (activeMode !== mode) setActiveMode(mode as any);
+        if (activeIndex !== idx) setActiveIndex(idx);
+        // Scroll into view smoothly
+        setTimeout(() => {
+          itemRefs.current[`${mode}-${idx}`]?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
+        return true;
+      }
+      return false;
+    };
+
+    // Try current mode first
+    let currentNodes = activeMode === "EXPERIENCE" ? experience : activeMode === "PROJECTS" ? projects : designs;
+    if (searchInMode(activeMode, currentNodes || [])) return;
+
+    // Try other modes
+    if (activeMode !== "EXPERIENCE" && searchInMode("EXPERIENCE", experience || [])) return;
+    if (activeMode !== "PROJECTS" && searchInMode("PROJECTS", projects || [])) return;
+    if (activeMode !== "DESIGNS" && searchInMode("DESIGNS", designs || [])) return;
+
+  }, [query, experience, projects, designs, activeMode, activeIndex]);
+
   if (!nodes.length) return null;
 
   return (
@@ -329,12 +368,14 @@ export function ProjectShowcase() {
           <div className="flex flex-col gap-6 relative z-10">
             {nodes.map((node: any, idx: number) => {
               const isActive = activeIndex === idx;
+              const isSearchMatch = query && query.trim().length >= 2 && isActive;
 
               return (
                 <div 
                   key={node.id} 
+                  ref={(el) => { itemRefs.current[`${activeMode}-${idx}`] = el; }}
                   onClick={() => setActiveIndex(idx)}
-                  className="flex items-start gap-4 cursor-pointer group"
+                  className={`flex items-start gap-4 cursor-pointer group transition-all duration-500 ${isSearchMatch ? "scale-[1.02]" : ""}`}
                 >
                   {/* The Node Dot */}
                   <div className="relative w-8 h-8 flex-shrink-0 flex items-center justify-center -ml-2">
@@ -342,23 +383,33 @@ export function ProjectShowcase() {
                       layoutId="active-node-dot"
                       className={`relative z-10 w-3 h-3 rounded-full border-2 transition-all duration-300 ${
                         isActive 
-                          ? "bg-emerald-400 border-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.8)]" 
+                          ? isSearchMatch 
+                              ? "bg-emerald-300 border-emerald-200 shadow-[0_0_25px_rgba(16,185,129,1)] scale-125" 
+                              : "bg-emerald-400 border-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.8)]" 
                           : "bg-obsidian border-emerald-500/50 group-hover:border-emerald-400"
                       }`}
                     />
                   </div>
 
                   {/* Node Content */}
-                  <div className={`flex-1 flex flex-col border border-transparent p-2 transition-all ${
-                    isActive ? "bg-emerald-500/10 border-emerald-500/30" : "group-hover:bg-emerald-500/5"
+                  <div className={`flex-1 flex flex-col border p-2 transition-all duration-500 ${
+                    isActive 
+                      ? isSearchMatch
+                        ? "bg-emerald-500/20 border-emerald-400 shadow-[inset_0_0_20px_rgba(16,185,129,0.3)]"
+                        : "bg-emerald-500/10 border-emerald-500/30" 
+                      : "border-transparent group-hover:bg-emerald-500/5"
                   }`}>
                     <div className="flex items-center gap-2 mb-1">
                       <span className={`text-[10px] ${isActive ? "text-emerald-300" : "text-emerald-500/50"}`}>
                         {node.commitHash}
                       </span>
                     </div>
-                    <div className={`text-sm lg:text-base font-bold uppercase tracking-wider ${
-                      isActive ? "text-emerald-400" : "text-emerald-500/80 group-hover:text-emerald-400"
+                    <div className={`text-sm lg:text-base font-bold uppercase tracking-wider transition-colors duration-500 ${
+                      isActive 
+                        ? isSearchMatch 
+                          ? "text-white drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]" 
+                          : "text-emerald-400" 
+                        : "text-emerald-500/80 group-hover:text-emerald-400"
                     }`}>
                       {node.title}
                     </div>

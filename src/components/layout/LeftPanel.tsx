@@ -4,11 +4,19 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/config/portfolio";
 import Image from "next/image";
+import { useSearch } from "@/components/context/SearchContext";
+
+const CACHE_KEY = "github_metrics_godzaryan";
 
 export function LeftPanel() {
   const { about, socials } = portfolioData;
+  const { query } = useSearch();
   const [hoveredPanel, setHoveredPanel] = useState<'identity' | 'bio' | null>(null);
   const [metrics, setMetrics] = useState({ projects: "15+", commits: "1.2K+" });
+
+  const searchLower = query ? query.toLowerCase() : "";
+  const isIdentityMatch = searchLower.length >= 2 && `${about.name} ${about.role} ${about.location} ${about.status}`.toLowerCase().includes(searchLower);
+  const isBioMatch = searchLower.length >= 2 && about.bio.toLowerCase().includes(searchLower);
 
   useEffect(() => {
     const fetchMetrics = async () => {
@@ -104,7 +112,11 @@ export function LeftPanel() {
           opacity: hoveredPanel === 'bio' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col flex-shrink-0 border border-emerald-500/30 bg-glass p-3 lg:p-4 terminal-border shadow-lg overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
+        className={`flex flex-col flex-shrink-0 border bg-glass p-3 lg:p-4 terminal-border overflow-hidden cursor-default transition-all duration-500 hover:border-emerald-500/60 ${
+          isIdentityMatch 
+            ? "border-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.5)] scale-[1.02] bg-emerald-500/10 z-20 relative" 
+            : "border-emerald-500/30 shadow-lg"
+        }`}
       >
         <motion.div layout="position" className="text-emerald-500/50 text-xs font-mono flex items-center gap-2 flex-shrink-0 h-4">
           <div className="w-1.5 h-1.5 bg-emerald-500 animate-pulse" />
@@ -119,7 +131,7 @@ export function LeftPanel() {
           }}
           className="flex-shrink-0 overflow-hidden"
         >
-          <h1 className="text-xl font-bold tracking-widest text-emerald-400 mb-1 uppercase break-words">
+          <h1 className={`text-xl font-bold tracking-widest uppercase break-words transition-colors duration-500 ${isIdentityMatch ? "text-white drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]" : "text-emerald-400 mb-1"}`}>
             {about.name}
           </h1>
           <div className="text-sm text-emerald-500/80 font-mono mb-2 break-words">
@@ -169,7 +181,11 @@ export function LeftPanel() {
           opacity: hoveredPanel === 'identity' ? 0.6 : 1,
         }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-        className="flex flex-col flex-shrink-0 border border-emerald-500/30 bg-glass p-3 lg:p-4 terminal-border shadow-lg relative overflow-hidden cursor-default transition-colors hover:border-emerald-500/60"
+        className={`flex flex-col flex-shrink-0 border bg-glass p-3 lg:p-4 terminal-border overflow-hidden cursor-default transition-all duration-500 hover:border-emerald-500/60 ${
+          isBioMatch 
+            ? "border-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.5)] scale-[1.02] bg-emerald-500/10 z-20 relative" 
+            : "border-emerald-500/30 shadow-lg relative"
+        }`}
       >
         <motion.div layout="position" className="text-emerald-500/50 text-[10px] lg:text-xs font-mono flex-shrink-0 h-4 mb-1 lg:mb-2">
           [ SYSTEM_OBJECTIVE ]

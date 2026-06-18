@@ -40,7 +40,7 @@ export function SecurityShield() {
 
     // 3. Disable Text Selection via CSS dynamically on body
     document.body.style.userSelect = "none";
-    document.body.style.WebkitUserSelect = "none";
+    document.body.style.webkitUserSelect = "none";
 
     // 4. Anti-Debugger Trap (Detects if DevTools is opened via other means)
     const detectDevTools = () => {
@@ -87,7 +87,7 @@ export function SecurityShield() {
       window.removeEventListener("resize", checkDimensions);
       clearInterval(interval);
       document.body.style.userSelect = "";
-      document.body.style.WebkitUserSelect = "";
+      document.body.style.webkitUserSelect = "";
     };
   }, []);
 

@@ -11,6 +11,7 @@ import { LeftPanel } from "@/components/layout/LeftPanel";
 import { RightPanel } from "@/components/layout/RightPanel";
 import { CyberFooter } from "@/components/effects/CyberFooter";
 import { GlobalGlitch } from "@/components/effects/GlobalGlitch";
+import { SearchProvider } from "@/components/context/SearchContext";
 
 export default function Home() {
   const [bootComplete, setBootComplete] = useState(false);
@@ -60,16 +61,18 @@ export default function Home() {
       {!bootComplete && <BootSequence onComplete={() => setBootComplete(true)} />}
       
       {bootComplete && (
-        <div className="flex w-full h-[85vh] gap-6 z-10 relative px-4 lg:px-8">
-          <LeftPanel />
-          <div className="flex-1 min-w-0 h-full">
-            <TerminalContainer className="!h-full !max-w-none">
-              <DynamicRenderer layoutData={layoutData} isLoading={isLoading} />
-              <TerminalPrompt onSend={handleCommand} isLoading={isLoading} />
-            </TerminalContainer>
+        <SearchProvider>
+          <div className="flex w-full h-[85vh] gap-6 z-10 relative px-4 lg:px-8">
+            <LeftPanel />
+            <div className="flex-1 min-w-0 h-full">
+              <TerminalContainer className="!h-full !max-w-none">
+                <DynamicRenderer layoutData={layoutData} isLoading={isLoading} />
+                <TerminalPrompt onSend={handleCommand} isLoading={isLoading} />
+              </TerminalContainer>
+            </div>
+            <RightPanel />
           </div>
-          <RightPanel />
-        </div>
+        </SearchProvider>
       )}
 
       {bootComplete && (
