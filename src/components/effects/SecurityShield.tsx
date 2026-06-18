@@ -54,18 +54,37 @@ export function SecurityShield() {
       }
     };
     
-    // Run debugger trap periodically
-    const interval = setInterval(detectDevTools, 1000);
+    // 5. Dimension mismatch detection (catches docked devtools immediately on load)
+    const checkDimensions = () => {
+      const threshold = 160;
+      const widthDiff = window.outerWidth - window.innerWidth > threshold;
+      const heightDiff = window.outerHeight - window.innerHeight > threshold;
+      if (widthDiff || heightDiff) {
+        document.body.innerHTML = "";
+        window.location.replace("about:blank");
+      }
+    };
+
+    // Run checks periodically
+    const interval = setInterval(() => {
+      detectDevTools();
+      checkDimensions();
+    }, 1000);
+
+    // Check immediately on load
+    checkDimensions();
 
     // Attach listeners
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("resize", checkDimensions);
 
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("resize", checkDimensions);
       clearInterval(interval);
       document.body.style.userSelect = "";
       document.body.style.WebkitUserSelect = "";
