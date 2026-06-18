@@ -102,18 +102,25 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
                     <div className="flex flex-col h-full font-sans">
                       <h3 className="text-emerald-400 font-mono text-lg font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
                         <div className="w-2 h-2 bg-neon-accent rounded-none" />
-                        {comp.props?.title || "UNKNOWN_PROJECT"}
+                        {comp.props?.title || comp.content?.title || "UNKNOWN_PROJECT"}
                       </h3>
-                      <p className="text-emerald-100/70 text-sm mb-4 flex-1">
-                        {comp.props?.description || "No data available."}
+                      <p className="text-emerald-100/70 text-sm mb-4 flex-1 whitespace-pre-wrap">
+                        {comp.props?.description || comp.content?.description || comp.content || "No data available."}
                       </p>
                       <div className="flex flex-wrap gap-2 mt-auto">
-                        {comp.props?.tech?.map((t: string) => (
+                        {(comp.props?.tech || comp.content?.tech || [])?.map((t: string) => (
                           <span key={t} className="text-[10px] font-mono px-2 py-1 bg-obsidian border border-emerald-500/30 text-emerald-500">
                             {t}
                           </span>
                         ))}
                       </div>
+                    </div>
+                  )}
+
+                  {!["text", "project_card", "socket_map", "code_compiler", "design_sandbox"].includes(comp.type) && (
+                    <div className="font-mono text-sm text-emerald-500/80 whitespace-pre-wrap break-words">
+                      [UNSUPPORTED_COMPONENT_TYPE: {comp.type}]
+                      {JSON.stringify(comp, null, 2)}
                     </div>
                   )}
 

@@ -19,6 +19,12 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCommand = async (prompt: string) => {
+    const cmd = prompt.trim().toLowerCase();
+    if (cmd === "clear" || cmd === "home" || cmd === "exit" || cmd === "reset") {
+      setLayoutData(null);
+      return;
+    }
+
     setIsLoading(true);
     try {
       const res = await fetch("/api/terminal", {

@@ -53,7 +53,7 @@ export function TerminalPrompt({ onSend, isLoading }: TerminalPromptProps) {
           "flex-1 bg-transparent border-none outline-none text-emerald-50 font-mono placeholder-emerald-500/30",
           isLoading && "opacity-50 cursor-not-allowed"
         )}
-        placeholder="Enter command or natural language request (e.g. 'Show projects in bento layout')..."
+        placeholder="Enter command (e.g. 'Show projects', or type 'clear' to reset)..."
         autoComplete="off"
         spellCheck="false"
       />
