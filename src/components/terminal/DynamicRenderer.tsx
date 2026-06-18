@@ -5,6 +5,7 @@ import { TerminalLayout } from "@/lib/ai/schema";
 import { SocketMap } from "@/components/modules/SocketMap";
 import { CodeCompiler } from "@/components/modules/CodeCompiler";
 import { DesignSandbox } from "@/components/modules/DesignSandbox";
+import { ProjectShowcase } from "@/components/modules/ProjectShowcase";
 import { cn } from "@/lib/utils";
 
 interface DynamicRendererProps {
@@ -30,11 +31,8 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
 
   if (!layoutData) {
     return (
-      <div className="flex-1 flex items-center justify-center font-mono text-emerald-500/30">
-        <div className="text-center">
-          <p>DEVIL_OS // AWAITING INPUT</p>
-          <p className="text-[10px] mt-2">TYPE A COMMAND OR REQUEST TO BEGIN</p>
-        </div>
+      <div className="flex-1 overflow-hidden w-full h-full">
+        <ProjectShowcase />
       </div>
     );
   }

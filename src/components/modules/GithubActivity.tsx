@@ -128,6 +128,37 @@ export function GithubActivity() {
       </div>
       
       <div className="flex flex-col gap-2 font-mono text-[10px] lg:text-xs text-emerald-500/70">
+        {repos.length > 0 && !loading && !error && (
+          <div className="mb-2 pb-2 border-b border-emerald-500/20 flex flex-col gap-2">
+            <span className="opacity-50 text-[9px] lg:text-[10px] mb-1">TOP_REPOSITORIES</span>
+            {repos.map((repo, i) => (
+              <motion.div 
+                key={repo.id}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex flex-col border border-emerald-500/10 bg-emerald-950/20 p-1.5 hover:bg-emerald-500/10 transition-colors"
+              >
+                <div className="flex justify-between items-start">
+                  <a 
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-emerald-400 font-bold hover:underline truncate"
+                  >
+                    {repo.name}
+                  </a>
+                  <div className="flex gap-2 text-[9px] opacity-70 flex-shrink-0">
+                    {repo.language && <span>{repo.language}</span>}
+                    <span>★ {repo.stargazers_count}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        <span className="opacity-50 text-[9px] lg:text-[10px] mb-1">GITHUB_UPLINKS</span>
         {loading ? (
           <div className="animate-pulse text-emerald-500/50 flex flex-col gap-2">
             <div className="h-4 bg-emerald-950/50 w-full" />
@@ -144,7 +175,7 @@ export function GithubActivity() {
               key={ev.id}
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: 0.3 + i * 0.1 }}
               className="flex flex-col border-b border-emerald-500/10 pb-1.5 last:border-0 group/item"
             >
               <div className="flex items-start justify-between gap-2">
@@ -172,36 +203,6 @@ export function GithubActivity() {
             LIVE_CONNECTION
           </a>
         </div>
-
-        {repos.length > 0 && !loading && !error && (
-          <div className="mt-2 pt-2 border-t border-emerald-500/20 flex flex-col gap-2">
-            <span className="opacity-50 text-[9px] lg:text-[10px] mb-1">TOP_REPOSITORIES</span>
-            {repos.map((repo, i) => (
-              <motion.div 
-                key={repo.id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + i * 0.1 }}
-                className="flex flex-col border border-emerald-500/10 bg-emerald-950/20 p-1.5 hover:bg-emerald-500/10 transition-colors"
-              >
-                <div className="flex justify-between items-start">
-                  <a 
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-emerald-400 font-bold hover:underline truncate"
-                  >
-                    {repo.name}
-                  </a>
-                  <div className="flex gap-2 text-[9px] opacity-70 flex-shrink-0">
-                    {repo.language && <span>{repo.language}</span>}
-                    <span>★ {repo.stargazers_count}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

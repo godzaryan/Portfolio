@@ -1,0 +1,108 @@
+{
+  "LetsSplit": {
+    "description": null,
+    "topics": [],
+    "readme": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).\n\n## Getting Started\n\nFirst, run the development server:\n\n```bash\nnpm run dev\n# or\nyarn dev\n# or\npnpm dev\n# or\nbun dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.\n\nYou can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.\n\nThis project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.\n\n## Learn More\n\nTo learn more about Next.js, take a look at the following resources:\n\n- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.\n- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.\n\nYou can check out [the Next.js GitHub repository](https://github.com/ver"
+  },
+  "Reconnect": {
+    "description": null,
+    "topics": [],
+    "readme": ""
+  },
+  "igi2-mef-viewer": {
+    "description": "An OpenGL-based 3D model viewer for IGI 2: Covert Strike binary .mef files with import/export support.",
+    "topics": [],
+    "readme": "# IGI 2 MEF Viewer (Standalone & Portable) [v1.4.1]\n\nAn OpenGL-based 3D model viewer for **IGI 2: Covert Strike** binary `.mef` files.\n\n## Features\n- **High-Fidelity Rendering**: Supports Rigid, Bone, Lightmap, and Shadow models.\n- **Detailed Overlays**: Toggle bones, magic vertices, collision meshes, portals, and glow sprites.\n- **Embedded Documentation**: Built-in \"MEF Guide\" for learning the binary format.\n- **Cross-Platform Readiness**: Portable EXE distribution for Windows.\n\n## Installation\n\n### For Users (Fast)\nDownload the latest `IGI2_MEF_Viewer.exe` from the [Releases](https://github.com/godzaryan/igi2-mef-viewer/releases) page. No Python required.\n\n### For Developers\n1. Clone this repository.\n2. Install dependencies:\n   ```bash\n   pip install -r requirements.txt\n   ```\n3. Run the viewer:\n   ```bash\n   python src/mef_viewer/main.py\n   ```\n\n## Creating a Portable EXE\nRun the provided build script:\n```bash\npython build_exe.py\n```\nThe result will be in the `dist/` folder.\n\n## Lib"
+  },
+  "igi2-mef-library": {
+    "description": "A high-performance, specification-driven Python library for parsing IGI 2: Covert Strike binary .mef models.",
+    "topics": [],
+    "readme": "# IGI 2 MEF Parsing Library (`igi2mef`)\n\nA high-performance, specification-driven Python library for parsing **IGI 2: Covert Strike** binary `.mef` models. Developed to be 100% accurate with the original game engine's coordinate systems, collision, and skeletal structures.\n\n## 🚀 Quick Start\n\nEnsure the library is installed (`pip install igi2mef`).\n\n```python\nfrom igi2mef import parse_mef\n\n# 1. Load and parse a model\nmodel = parse_mef(\"path/to/model.mef\")\n\n# 2. Access core metadata\nif model.valid:\n    print(f\"Model: {model.name} ({model.model_type_name})\")\n    print(f\"Stats: {model.total_vertices} Verts, {model.total_triangles} Tris\")\n\n    # 3. Traverse geometry (PARTS)\n    for part in model.parts:\n        print(f\"Part {part.index} has {len(part.vertices)} vertices.\")\n        \n    # 4. Traverse Skeleton (BONES)\n    for bone in model.bones:\n        print(f\"Bone: {bone.name} (Parent: {bone.parent_id})\")\nelse:\n    print(f\"Error loading model: {model.error}\")\n```\n\n## 🛠️ Detailed API Refer"
+  },
+  "IGOTYOU": {
+    "description": "IGOTYOU is an innovative and highly intuitive AI-powered voice and gesture assistant designed to streamline your daily computer interactions. It combines natural language processing with advanced gesture recognition to provide a seamless and hands-free control experience.",
+    "topics": [
+      "ai",
+      "assistant",
+      "audio",
+      "chatbot",
+      "gesture-detection",
+      "gesture-recognition",
+      "python",
+      "visualizer",
+      "voice-assistant",
+      "voice-commands",
+      "voice-control",
+      "voice-recognition"
+    ],
+    "readme": "<div align=\"center\">\n  <h1>🎯 IGOTYOU</h1>\n  <p><strong>A Next-Generation, Multi-Modal Accessibility Suite for Windows</strong></p>\n</div>\n\nIGOTYOU is a powerful, production-ready desktop application designed to grant users full control over their Windows environment using **voice commands, hand gestures, facial expressions, and eye tracking**.\n\nWhether you have limited mobility, are recovering from an injury, or simply want a hands-free workflow, IGOTYOU provides intuitive, real-time control over your PC.\n\n![License](https://img.shields.io/badge/license-MIT-blue.svg)\n![Python](https://img.shields.io/badge/python-3.10+-blue.svg)\n![Platform](https://img.shields.io/badge/platform-windows-lightgray.svg)\n\n---\n\n## ✨ Core Features\n\n### 🎙️ Voice Assistant (Powered by Gemini 2.0/2.5)\n*   **System Control**: Launch apps, manage windows, control media volume/brightness, and lock your screen.\n*   **Web Integration**: Search the web, open URLs, and type via voice dictation.\n*   **Conversational A"
+  },
+  "Perplexity-Automation-Bot": {
+    "description": "Perplexity Automation Bot - A Python Selenium script to automate queries and responses on Perplexity AI website using your existing Firefox profile.",
+    "topics": [
+      "ai",
+      "artificial-intelligence",
+      "automation",
+      "browser-automation",
+      "chatbot",
+      "data-extraction",
+      "firefox",
+      "geckodriver",
+      "headless-browser",
+      "open-source",
+      "perplexity-ai",
+      "python",
+      "python-scripts",
+      "selenium",
+      "web-automation",
+      "web-scraping"
+    ],
+    "readme": "# Perplexity Automation Bot\n\nA professional Python automation script that interacts with [Perplexity AI](https://www.perplexity.ai/) through Firefox using Selenium WebDriver.  \nAutomate sending prompts and retrieving AI responses dynamically and efficiently, with your logged-in Firefox profile.\n\n---\n\n## Table of Contents\n\n- [Project Overview](#project-overview)  \n- [Features](#features)  \n- [Prerequisites](#prerequisites)  \n- [Installation](#installation)  \n- [Getting Started (Beginner Guide)](#getting-started-beginner-guide)  \n- [Usage](#usage)  \n- [Code Overview](#code-overview)  \n- [Troubleshooting](#troubleshooting)  \n- [Contributing](#contributing)  \n- [License](#license)  \n\n---\n\n## Project Overview\n\n**Perplexity Automation Bot** automates interaction with Perplexity AI by leveraging Selenium and your existing Firefox browser profile.  \nIt sends prompts via the live web UI dynamically, waits intelligently for the AI to finish generating responses, and outputs results directly to t"
+  },
+  "DocStructureX-Persona": {
+    "description": "DocStructureX-Persona is a fully offline, CPU-optimized system that extracts and ranks the most relevant PDF sections based on user persona and their specific job-to-be-done.",
+    "topics": [],
+    "readme": "# DocStructureX-Persona — Persona-Driven Document Intelligence\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n\n---\n\n## Table of Contents\n\n- [About](#about)  \n- [Key Features](#key-features)  \n- [How It Works](#how-it-works)  \n- [Architecture](#architecture)  \n- [Installation](#installation)  \n- [Usage](#usage)  \n- [Docker Usage](#docker-usage)  \n- [Project Structure](#project-structure)  \n- [Contributing](#contributing)  \n- [License](#license)  \n\n---\n\n## About\n\n**DocStructureX-Persona** is a production-ready, fully offline, CPU-optimized tool developed for the Adobe India Hackathon 2025 Round 1B challenge — *Persona-Driven Document Intelligence*.\n\nThe system analyzes a collection of related PDFs and extracts the most relevant sections tailored to a user’s unique persona and their specific job-to-be-done. It builds on robust structural outline extraction from Round 1A, combining lightweight natural language processing with fa"
+  },
+  "IGI.NET": {
+    "description": "A comprehensive C# library for interacting with IGI (Project IGI 2: Covert Strike) game servers, offering server querying, real-time event monitoring, RCON command execution, and in-game memory manipulation",
+    "topics": [],
+    "readme": "# IGI.NET - Comprehensive Game Server Interaction Library\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/godzaryan/IGI.NET/blob/main/LICENSE)\n[![GitHub stars](https://img.shields.io/github/stars/godzaryan/IGI.NET?style=social)](https://github.com/godzaryan/IGI.NET/stargazers)\n[![GitHub forks](https://img.shields.io/github/forks/godzaryan/IGI.NET?style=social)](https://github.com/godzaryan/IGI.NET/network/members)\n\n![IGI.NET Banner](https://placehold.co/800x400/282C34/F0F0F0?text=IGI.NET+Game+Server+Interaction)\n\nIGI.NET is a robust C# library meticulously crafted for deep interaction with **IGI (Project IGI 2: Covert Strike)** game servers. It provides a comprehensive and easy-to-use set of functionalities to query server status, retrieve detailed player information, listen for a wide array of in-game events, and even execute powerful RCON commands. Whether you're an aspiring developer building a custom server monitoring tool, a dedicated com"
+  },
+  "ai-code-generator": {
+    "description": "An AI-powered code generator with a web interface, built using Python (Flask) and Google Gemini API, allowing users to generate and download code snippets with detailed metadata from natural language prompts",
+    "topics": [
+      "ai",
+      "api",
+      "chatbot",
+      "code-generation",
+      "code-generator",
+      "deep-learning",
+      "developer-tools",
+      "flask",
+      "full-stack",
+      "gemini-api",
+      "generative-ai",
+      "html",
+      "javascript",
+      "machine-learning",
+      "prototype",
+      "python",
+      "software-development",
+      "user-interface",
+      "web-application",
+      "web-interface"
+    ],
+    "readme": "# 🚀 AI Code Generator\n\nThis project is an AI-powered code generator that leverages the Google Gemini API to generate code snippets, full files, and associated metadata based on natural language prompts. It features a Flask backend for API interactions and a user-friendly HTML/JavaScript frontend.\n\n## ✨ Features\n\n* **Natural Language to Code:** Generate code from plain English descriptions.\n* **Multi-file Generation:** Supports generating multiple distinct code files for complex requests (e.g., frontend and backend components).\n* **Detailed Code Metadata:** For each generated solution, get insights into:\n    * Primary language(s)\n    * Approximate lines of code\n    * Time and Space complexity\n    * Purpose and Goal\n    * Required dependencies\n    * File extensions\n    * Input/Output examples\n    * Usage instructions\n    * Number of functions/classes\n    * Error handling details\n    * Assumptions\n    * Adherence to best practices\n    * Target environment\n* **Intuitive Web Interface:** A"
+  },
+  "genr8": {
+    "description": "Genr8 is a powerful clipboard monitoring tool that leverages Google's Gemini AI to generate optimized, error-free code snippets on the fly. Whenever you copy a programming-related question, Genr8 automatically fetches the best possible code response and types it out for you instantly!",
+    "topics": [],
+    "readme": "# Genr8\n\n## 🚀 Overview\n**Genr8** is a powerful clipboard monitoring tool that leverages Google's **Gemini AI** to generate optimized, error-free code snippets on the fly. Whenever you copy a programming-related question, Genr8 automatically fetches the best possible code response and types it out for you instantly!\n\n## ✨ Features\n- **Real-time Clipboard Monitoring**: Detects changes in clipboard content.\n- **AI-Powered Code Generation**: Uses Gemini AI to generate accurate and updated code.\n- **Auto Typing**: Automatically types out the generated code.\n- **Optimized Code Responses**: Ensures no junk or unnecessary comments in the output.\n- **Logging System**: Saves all questions and answers for future reference.\n\n## 🔧 Installation\n\n1. Clone this repository:\n   ```sh\n   git clone https://github.com/yourusername/genr8.git\n   cd genr8\n   ```\n2. Install dependencies:\n   ```sh\n   pip install google-generativeai pyperclip pyautogui\n   ```\n3. Set up the Gemini API key:\n   - Replace `api_key"
+  },
+  "ansir": {
+    "description": "Ansir is an AI-powered clipboard monitor that automatically detects multiple-choice questions (MCQs), sends them to Google Gemini AI for analysis, and displays the correct answer in a sleek frameless PyQt6 popup. It also logs all questions and answers for future reference.",
+    "topics": [],
+    "readme": "# **Ansir** 🧠📋  \n🚀 **Ansir** is an AI-powered clipboard monitor that automatically detects multiple-choice questions (MCQs), sends them to **Google Gemini AI** for analysis, and displays the correct answer in a sleek **frameless PyQt6 popup**. It also logs all questions and answers for future reference.  \n\n## **🔹 Features**  \n✅ **Real-time Clipboard Monitoring** – Detects copied MCQs instantly.  \n✅ **AI-Powered Answering** – Uses **Google Gemini AI** for accurate answers.  \n✅ **Minimalist Popup Display** – Frameless, translucent answer notifications.  \n✅ **Automatic Logging** – Saves questions and answers in `Ansir.log`.  \n✅ **Efficient & Lightweight** – Runs in the background with minimal resource usage.  \n\n## **🔹 How It Works**  \n1. Copy a **multiple-choice question** from any document or website.  \n2. **Ansir** automatically detects the copied text.  \n3. It sends the question to **Gemini AI** and retrieves the best answer.  \n4. The answer appears in a **sleek popup notification"
+  }
+}

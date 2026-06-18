@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://godzaryan.github.io"),
   title: `${portfolioData.about.name} | ${portfolioData.about.role}`,
   description: portfolioData.about.bio,
   openGraph: {
