@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://godzaryan.github.io"),
+  metadataBase: new URL("https://godzaryan.vercel.app"),
   title: `${portfolioData.about.name} | ${portfolioData.about.role}`,
   description: portfolioData.about.bio,
   openGraph: {
     title: `${portfolioData.about.name} | DEVIL OS`,
     description: portfolioData.about.bio,
-    url: "https://yourdomain.com",
+    url: "https://godzaryan.vercel.app",
     siteName: "DEVIL OS Terminal",
     type: "website",
   },

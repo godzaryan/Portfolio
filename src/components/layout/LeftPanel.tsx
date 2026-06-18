@@ -75,20 +75,12 @@ export function LeftPanel() {
         
         <div className="relative w-full h-full border border-emerald-500/20 overflow-hidden group-hover:border-emerald-500/50 transition-colors duration-500">
           <Image
-            src="/real_avatar_v2.jpg"
-            alt="Real Avatar"
-            fill
-            sizes="250px"
-            priority
-            className="object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 absolute inset-0 z-0"
-          />
-          <Image
             src="/matrix_avatar_v2.png"
             alt="Matrix Avatar"
             fill
             sizes="250px"
             priority
-            className="object-cover opacity-80 group-hover:opacity-0 group-hover:scale-105 transition-all duration-700 filter contrast-125 saturate-150 absolute inset-0 z-10 mix-blend-screen"
+            className="object-cover opacity-90 group-hover:scale-105 transition-all duration-700 filter contrast-125 saturate-150 absolute inset-0 z-10"
           />
           <div className="absolute inset-0 scanline-overlay opacity-30 pointer-events-none z-20" />
         </div>
