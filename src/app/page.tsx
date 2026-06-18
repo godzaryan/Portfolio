@@ -44,11 +44,11 @@ export default function Home() {
       // Fallback manual layout on total failure
       setLayoutData({
         layout: "default",
-        theme: "obsidian",
+        theme: "crimson",
         animationCurve: "glitch",
-        message: "CRITICAL ERROR: Uplink failed. Displaying cached local data.",
+        message: "CRITICAL ERROR: AI Uplink failed. Connection refused or timed out.",
         components: [
-          { type: "text", content: "ERROR: 503 SERVICE UNAVAILABLE" }
+          { type: "text", content: "ERROR 503 / 500: SERVICE UNAVAILABLE\n\nDIAGNOSTICS:\n1. If you just deployed to Vercel, verify that your Environment Variables (GROQ_API_KEY, GOOGLE_GENERATIVE_AI_API_KEY) are configured in the Vercel Project Settings.\n2. Vercel deployments do not automatically inherit your local .env files.\n3. Re-deploy the project after adding the keys." }
         ]
       });
     } finally {

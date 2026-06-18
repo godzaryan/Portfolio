@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { generateDynamicLayout } from "@/lib/ai/fallback-router";
 import { portfolioData } from "@/config/portfolio";
 
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
+
 // System context that guides the LLM to act as the OS and use the data.
 const SYSTEM_PROMPT = `
 You are DEVIL_OS, an advanced futuristic AI Operating System representing Akash Aryans's developer portfolio.
