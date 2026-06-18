@@ -55,6 +55,12 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
     "grid grid-cols-1 md:grid-cols-3 gap-4 grid-rows-[auto_1fr]": layout === "bento",
   });
 
+  const validComponents = components?.filter(c => {
+    if (c.type === "text" && (!c.content || String(c.content).trim() === "") && !c.props) return false;
+    if (Object.keys(c).length === 0) return false;
+    return true;
+  }) || [];
+
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Terminal Message Header */}
@@ -78,7 +84,7 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
             exit={{ opacity: 0, scale: 0.95 }}
             transition={getAnimationProps()}
           >
-            {components.length === 0 ? (
+            {validComponents.length === 0 ? (
               <motion.div 
                 className="col-span-full flex flex-col items-center justify-center p-8 text-emerald-500/50 font-mono text-center h-full border border-emerald-500/20 bg-emerald-950/10"
                 initial={{ opacity: 0 }}
@@ -95,7 +101,7 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
                 </div>
               </motion.div>
             ) : (
-              components.map((comp, idx) => {
+              validComponents.map((comp, idx) => {
               const bentoClass = layout === "bento" && idx === 0 ? "col-span-1 md:col-span-3 lg:col-span-2 row-span-2" : "";
               
               return (
