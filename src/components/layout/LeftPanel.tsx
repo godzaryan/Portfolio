@@ -35,19 +35,19 @@ export function LeftPanel() {
 
         const currentYear = new Date().getFullYear();
         const [userRes, commitsRes] = await Promise.all([
-          fetch("https://api.github.com/users/godzaryan"),
-          fetch(`https://api.github.com/search/commits?q=author:godzaryan+committer-date:>${currentYear}-01-01`)
+          fetch("https://api.github.com/users/godzaryan").catch(() => null),
+          fetch(`https://api.github.com/search/commits?q=author:godzaryan+committer-date:>${currentYear}-01-01`).catch(() => null)
         ]);
 
         let projects = "15+";
         let commits = "1.2K+";
 
-        if (userRes.ok) {
+        if (userRes && userRes.ok) {
           const userData = await userRes.json();
           projects = userData.public_repos.toString();
         }
 
-        if (commitsRes.ok) {
+        if (commitsRes && commitsRes.ok) {
           const commitsData = await commitsRes.json();
           commits = commitsData.total_count.toString();
         }
@@ -60,7 +60,7 @@ export function LeftPanel() {
         
         setMetrics(newData);
       } catch (err) {
-        console.error("Failed to fetch Github metrics", err);
+        console.warn("Failed to fetch Github metrics - using fallback.", err);
       }
     };
 
