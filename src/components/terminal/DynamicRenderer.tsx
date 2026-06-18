@@ -78,7 +78,24 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
             exit={{ opacity: 0, scale: 0.95 }}
             transition={getAnimationProps()}
           >
-            {components.map((comp, idx) => {
+            {components.length === 0 ? (
+              <motion.div 
+                className="col-span-full flex flex-col items-center justify-center p-8 text-emerald-500/50 font-mono text-center h-full border border-emerald-500/20 bg-emerald-950/10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <div className="text-4xl mb-4 opacity-50">?</div>
+                <div className="text-lg text-emerald-400 tracking-widest uppercase mb-2">UNRECOGNIZED_QUERY</div>
+                <p className="text-xs max-w-md">
+                  The system AI could not generate relevant UI components for that request. 
+                  Try asking about specific projects, technical skills, or design workflows.
+                </p>
+                <div className="mt-6 text-[10px] bg-emerald-950/50 px-3 py-1 border border-emerald-500/30">
+                  HINT: Type <span className="text-emerald-300 font-bold">clear</span> to return to the main dashboard.
+                </div>
+              </motion.div>
+            ) : (
+              components.map((comp, idx) => {
               const bentoClass = layout === "bento" && idx === 0 ? "col-span-1 md:col-span-3 lg:col-span-2 row-span-2" : "";
               
               return (
@@ -129,7 +146,8 @@ export function DynamicRenderer({ layoutData, isLoading }: DynamicRendererProps)
                   {comp.type === "design_sandbox" && <DesignSandbox />}
                 </motion.div>
               );
-            })}
+            })
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
