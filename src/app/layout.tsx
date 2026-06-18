@@ -22,12 +22,21 @@ export const metadata: Metadata = {
     description: portfolioData.about.bio,
     url: "https://godzaryan.vercel.app",
     siteName: "DEVIL OS Terminal",
+    images: [
+      {
+        url: "https://godzaryan.vercel.app/matrix_avatar_v2.png",
+        width: 1200,
+        height: 630,
+        alt: "DEVIL OS Cyber Avatar",
+      }
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: `${portfolioData.about.name} | DEVIL OS`,
     description: portfolioData.about.bio,
+    images: ["https://godzaryan.vercel.app/matrix_avatar_v2.png"],
   },
 };
 
