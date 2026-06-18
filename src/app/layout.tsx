@@ -25,15 +25,15 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://godzaryan.vercel.app/matrix_avatar_v2.png",
-        width: 1200,
-        height: 630,
+        width: 500,
+        height: 500,
         alt: "DEVIL OS Cyber Avatar",
       }
     ],
     type: "website",
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: `${portfolioData.about.name} | DEVIL OS`,
     description: portfolioData.about.bio,
     images: ["https://godzaryan.vercel.app/matrix_avatar_v2.png"],
